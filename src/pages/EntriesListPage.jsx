@@ -1,12 +1,10 @@
-import { NavLink } from "react-router-dom";
+import Menu from "../components/Menu";
 
 const EntriesListPage = () => {
   return (
     <>
-      <NavLink to="">Entradas</NavLink>
-      <NavLink to="/register">Registro</NavLink>
-      <NavLink to="/login">Login</NavLink>
-      <div>Pagina de Entradas</div>
+      <Menu />
+      <div>Pagina de Entradas de Viajes</div>
     </>
   );
 };

@@ -1,11 +1,9 @@
-import { NavLink } from "react-router-dom";
+import Menu from "../components/Menu";
 
 const LoginPage = () => {
   return (
     <>
-      <NavLink to="/">Entradas</NavLink>
-      <NavLink to="/register">Registro</NavLink>
-      <NavLink to="">Login</NavLink>
+      <Menu />
       <div>Pagina de Login</div>
     </>
   );
