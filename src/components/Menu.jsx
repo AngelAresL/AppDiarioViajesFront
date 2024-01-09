@@ -5,7 +5,7 @@ const Menu = () => {
     <>
       <NavLink to="/">Entradas</NavLink>
       <NavLink to="/register">Registro</NavLink>
-      <NavLink to="">Login</NavLink>
+      <NavLink to="/login">Login</NavLink>
     </>
   );
 };
