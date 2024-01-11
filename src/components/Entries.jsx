@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const Entries = ({ data }) => {
   return (
     <ul>
@@ -13,4 +15,8 @@ const Entries = ({ data }) => {
     </ul>
   );
 };
+Entries.propTypes = {
+  data: PropTypes.array,
+};
+
 export default Entries;

@@ -1,51 +1,26 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Menu from "../components/Menu";
+import TokenAuth from "../TokenProvider";
+import useDiferentsFetch from "../hooks/fetchHooks";
 
 const LoginPage = () => {
+  const { loginFetch } = useDiferentsFetch();
   const [mail, setMail] = useState("");
   const [pass, setPass] = useState("");
   const [statusMesage, setStatusMesage] = useState("");
-  const authtenticateUser = async () => {
-    try {
-      const response = await fetch("http://localhost:8000/users/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: mail,
-          password: pass,
-        }),
-      });
+  const [, setToken] = useContext(TokenAuth);
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok " + response.statusText);
-      }
-
-      const data = await response.json();
-      console.log(data);
-      console.log(data.data.token);
-      setStatusMesage("ok");
-
-      return data.data.token;
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
   return (
     <>
       <Menu />
-      <div>Pagina de Login</div>
+      <h2 className="text-3xl font-bold underline">Pagina de Login</h2>
       {statusMesage ? <div>{statusMesage}</div> : <div>-</div>}
       <form
         onSubmit={async (e) => {
           e.preventDefault();
-          const token = await authtenticateUser();
-
+          loginFetch(mail, pass, setStatusMesage, setToken);
           setMail("");
           setPass("");
-
-          localStorage.setItem("token", token);
         }}
       >
         <div>

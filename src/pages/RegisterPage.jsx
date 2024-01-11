@@ -1,49 +1,23 @@
 import { useState } from "react";
 import Menu from "../components/Menu";
+import useDiferentsFetch from "../hooks/fetchHooks";
 
 const RegisterPage = () => {
+  const { registerFetch } = useDiferentsFetch();
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
   const [pass, setPass] = useState("");
   const [statusMesage, setStatusMesage] = useState("");
 
-  const fetchData = async () => {
-    try {
-      const response = await fetch("http://localhost:8000/users/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username: name,
-          email: mail,
-          password: pass,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Network response was not ok " + response.statusText);
-      }
-
-      const data = await response.json();
-      console.log(data);
-      setStatusMesage(data.message);
-
-      return data;
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
   return (
     <>
       <Menu />
-      <div>Pagina de Registro</div>
+      <h2 className="text-3xl font-bold underline">Pagina de Registro</h2>
       {statusMesage ? <div>{statusMesage}</div> : <div>-</div>}
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          fetchData();
+          registerFetch(name, mail, pass, setStatusMesage);
           setName("");
           setMail("");
           setPass("");

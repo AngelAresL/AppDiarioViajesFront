@@ -2,28 +2,24 @@ import { useEffect, useState } from "react";
 import Menu from "../components/Menu";
 import Entries from "../components/Entries";
 
-const EntriesListPage = () => {
-  const [entry, setEntry] = useState([]);
-  const getFetch = async () => {
-    try {
-      const response = await fetch("http://localhost:8000/entries");
-      if (!response.ok) {
-        throw new Error("Network response was not ok " + response.statusText);
-      }
+import useDiferentsFetch from "../hooks/fetchHooks";
+import { Link } from "react-router-dom";
 
-      const data = await response.json();
-      setEntry(data.data.entries);
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
+const EntriesListPage = () => {
+  const { listEntryFetch } = useDiferentsFetch();
+  const [entry, setEntry] = useState([]);
+
   useEffect(() => {
-    getFetch();
+    listEntryFetch(setEntry);
   }, []);
   return (
     <>
       <Menu />
-      <div>Pagina de Entradas de Viajes</div>
+      <h2 className="text-3xl font-bold underline">
+        Pagina de Entradas de Viajes
+      </h2>
+      <Link to={"/entry/new"}>Nueva Entrada</Link>
+
       <Entries data={entry} />
     </>
   );
